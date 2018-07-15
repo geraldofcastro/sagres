@@ -41,6 +41,12 @@ class NotaController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'nota' => 'required|min:0|max:10|numeric'     
+        ]);
+
+
         $data = $request->all();
         if (Nota::create($data)) {
             return redirect()->route('notas.index')

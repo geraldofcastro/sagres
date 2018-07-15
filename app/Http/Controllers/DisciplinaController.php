@@ -36,6 +36,11 @@ class DisciplinaController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'disciplina' => 'required|min:4|max:255|unique:disciplinas'     
+        ]);
+
         $data = $request->all();
         if (Disciplina::create($data)) {
             return redirect()->route('disciplinas.index')

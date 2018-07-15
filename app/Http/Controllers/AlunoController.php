@@ -38,6 +38,17 @@ class AlunoController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'matricula' => 'required|size:8|unique:alunos',
+            'nome' => 'required|min:6|max:255',
+            'endereco' => 'required|min:6|max:255',
+            'bairro' => 'required|min:4|max:255',
+            'cep' => 'required|size:8',
+            'cidade' => 'required|min:3|max:255',
+            'uf' => 'required|min:2|max:2',
+            'email' => 'required|min:4|max:255|email|unique:alunos'        
+        ]);
+
         $data = $request->all();
         if (Aluno::create($data)) {
             return redirect()->route('alunos.index')
